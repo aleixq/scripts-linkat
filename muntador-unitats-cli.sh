@@ -33,6 +33,8 @@ usage() {
     echo -e "\t-i IP\t\tIp del servidor"
     echo -e "\t-w \t\tWindows. El servidor es tracta d'un servidor Windows Server 2003 o Windows Server 2010."
     echo ""
+    echo "Exemple: sudo ./muntador-unitats-cli.sh -i 192.168.0.100 -d  \"prof:passw@Professorat,gestio:passw@Gestio,argo:passw@Treball,super:passw@programari\" -s"
+    echo ""
     echo "En cas de voler desfer les accions realitzades per l'script s'ha d'esborrar la carpeta /mnt/Servidor, el fitxer /etc/auto.muntador i els continguts de /etc/auto.master"
     exit 1; 
 }
