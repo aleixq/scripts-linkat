@@ -81,9 +81,9 @@ done
 
 if [[ $NOMOLESTIS ]] 
 then
-    [[ !$IP || !$UNITATS ]] && echo "no estan definits la IP o les unitats" && usage && exit 1
+    [ -z ${IP+x} ] || [ -z ${UNITATS+x} ]  && echo "no estan definits la IP o les unitats" && usage && exit 1
 fi
-exit
+
 if [ -n "$(id | grep root)" ]; then
 
 {
@@ -101,7 +101,7 @@ if [ -n "$(id | grep root)" ]; then
 # Es comprova que l'script no ha estat executat anteriorment.
 #
 	if [ -e /etc/muntador_unitats ]; then
-		dialog --yesno --title="Connexió d'unitats de xarxa" "El configurador ja ha estat aplicat.\n\n Voleu tornar a aplicar-ho?" 30 90
+		dialog --yesno --title "Connexió d'unitats de xarxa" "El configurador ja ha estat aplicat.\n\n Voleu tornar a aplicar-ho?" 30 90
 		if [ "$?" != 0 ] ; then
 			exit 1
 		else
@@ -116,7 +116,13 @@ if [ -n "$(id | grep root)" ]; then
 #
 # Aturem el servei autofs
 #
-	service autofs stop
+if service --status-all | grep -Fq 'autofs'; then         
+        service autofs stop
+else
+        echo "no autofs service present";
+        exit 1
+fi
+	
 
 #
 # RESPOSTA: Aquesta variable s'utilitza per confirmar que la configuració introduïda és correcta.
