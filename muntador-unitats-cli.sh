@@ -103,7 +103,7 @@ if [ -n "$(id | grep root)" ]; then
 # Es comprova que l'script no ha estat executat anteriorment.
 #
 	if [ -e /etc/muntador_unitats ]; then
-		dialog --yesno --title "Connexió d'unitats de xarxa" "El configurador ja ha estat aplicat.\n\n Voleu tornar a aplicar-ho?" 30 90
+		dialog --title "Connexió d'unitats de xarxa" --yesno "El configurador ja ha estat aplicat.\n\n Voleu tornar a aplicar-ho?" 30 90
 		if [ "$?" != 0 ] ; then
 			exit 1
 		else
