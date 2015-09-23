@@ -103,11 +103,19 @@ if [ -n "$(id | grep root)" ]; then
 # Es comprova que l'script no ha estat executat anteriorment.
 #
 	if [ -e /etc/muntador_unitats ]; then
-		dialog --title "Connexió d'unitats de xarxa" --yesno "El configurador ja ha estat aplicat.\n\n Voleu tornar a aplicar-ho?" 30 90
+		if [[ ! $NOMOLESTIS ]]; then
+			dialog --title "Connexió d'unitats de xarxa" --yesno "El configurador ja ha estat aplicat.\n\n Voleu tornar a aplicar-ho?" 30 90
+		else
+			echo "tornant a executar el configurador"
+		fi
 		if [ "$?" != 0 ] ; then
 			exit 1
 		else
 			mv /etc/auto.muntador /etc/Linkat/linkat-muntador-unitats/auto.muntador.$(date +%F)
+			[ `grep -c "/mnt\/Servidor     \/etc\/auto.muntador --timeout=60 --ghost" /etc/auto.master` == 0 ] && \ 
+			echo "${BOLD}Pas 0:${NORM}escribint continguts a /etc/auto.master i creant directori /mnt/Servidor" && \
+			echo "/mnt/Servidor     /etc/auto.muntador --timeout=60 --ghost" >> /etc/auto.master && \
+			mkdir -p /mnt/Servidor
 		fi
 	else
                 echo "${BOLD}Pas 0:${NORM}escribint continguts a /etc/auto.master i creant directori /mnt/Servidor"
