@@ -359,6 +359,14 @@ done
 			useradd -c "Usuari $USUARI" -s /bin/bash -d $HOME_LOCAL/$USUARI -m -p "$CONTRASENYA_XIFRADA" $USUARI
 		fi
 		echo "${BOLD}Pas 3:${NORM} Afegint enllaços a l'Escriptori de cada usuari"
+		if [[ -d /home/$USUARI ]];  then  
+			mkdir -m 755 -p /home/$USUARI/Escriptori/
+			chown $USUARI:$USUARI /home/$USUARI/Escriptori/
+		fi
+		if [[ -d /home-local/$USUARI ]];  then  
+			mkdir -m 755 -p /home-local/$USUARI/Escriptori/
+			chown $USUARI:$USUARI /home-local/$USUARI/Escriptori/
+		fi
 		ln -s /mnt/Servidor /home/$USUARI/Escriptori/Unitats\ xarxa
 		ln -s /mnt/Servidor /home-local/$USUARI/Escriptori/Unitats\ xarxa
 	done
