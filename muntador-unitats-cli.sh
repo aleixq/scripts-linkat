@@ -241,7 +241,7 @@ echo "========================" >> $FITXER_RECURSOS
                         then
                             share=${UNITAT_TROBADA#*@}
                             USUARI=${UNITAT_TROBADA%%:*}
-                            CONTRASENYA=$(echo ${UNITAT_TROBADA#*:} | sed 's/\([a-z]*\).*/\1/')
+                            CONTRASENYA=$(echo ${UNITAT_TROBADA#*:} |  sed 's/\(.*\)@.*/\1/')
                         else
                             if [[ ! $NOMOLESTIS ]]
                             then
@@ -292,7 +292,6 @@ echo "========================" >> $FITXER_RECURSOS
 		done
 		
 
-#                 if [[ ! $NOMOLESTIS ]]
 		if [[ ! $NOMOLESTIS ]] 
 		then
                     dialog --title "Confirmació de la configuració" --yesno "$(<$FITXER_RECURSOS)" \
